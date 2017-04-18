@@ -34,21 +34,13 @@
 	for ($i=0; $i <10 ; $i++) { 
 	echo $fakeres->name($gender = null).$s;
 	}
-
-// '2010A'
-// '2010B'
-// '2011A'
-// '2011B'
-// '2012A'
-// '2012B'
-// '2013A'
-// '2013B'
-// '2014A'
-// '2014B'
-// '2015A'
-// '2015B'
-// '2016A'
-// '2016B'
-// '2017A'
-// '2017B'
+	
+	$name = $fakeres->firstName($gender = null);
+	$ap = $fakeres->lastName;
+	$ap2 =$fakeres->lastName;
+	$fakeres->regexify('[A-Z0-9._%+-]+@[A-Z0-9._%+-]+\.[A-Z]{2,4}');
+	$fakeres->randomElement($array = array ('estudiante','docente','secre','admin'));
+	$fakeres->randomElement($array = array ('ACTIVO','BAJA POR ART 33','ALUMNO EN ARTICULO 34','BAJA ADMINISTRATIVA','BAJA'));
+	$fakeres->randomElement($array = array ('2010A','2010B','2011A','2011B','2012A','2012B','2013A','2013B','2014A','2014B','2015A','2015B','2016A','2016B','2017A','2017B'));
+	// 'email' => $name.'.'.$ap.'@'.$fakeres->freeemaildomain
 ?>

@@ -3,9 +3,6 @@
 	
 	$fakeres = Faker\Factory::create(es_ES_yha);
 
-	// $loader = new Twig_Loader_Filesystem('../views');
-	// $twig = new Twig_Enviroment($loader,[]);
-
 	$loader = new Twig_Loader_Filesystem('../views');
 	$twig = new Twig_Environment($loader, array());
 

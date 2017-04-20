@@ -1,24 +1,25 @@
 .fad{
-	font-size: 15px;
-	color: #fff;
-	background: rgba(0,0,0,.35);
-	border-radius: 1em;
 	margin-bottom: 1.5em;
 	padding: 1.3em 2em;
+	color: #fff;
+	border-radius: 1em;
+	background: rgba(0,0,0, 0.65);
+	font-size: 15px;
 }
 
 .fad [type='submit']{
-	font-size: 1em;
-	margin: .3em;
-/*	margin-top: 1em;*/
-/*	margin-bottom: .5em;*/
+	/*margin-top: 1em;
+	margin-bottom: .5em;*/
 	width: 60%;
+	margin: .3em;
+	padding: .5em;
+	font-size: 1em;
 }
 .navbar{
 	background-color: #00004C;
 }
 
-.btn-success{
+.btn-primary{
 	margin-bottom: 1em;
 	font-size: 1.5em;
 }
@@ -35,9 +36,9 @@ nav div div a img{
 	margin-top: 1.35em;
 }
 .status{
-	background: #FFCC00; 
-	color: #000000;
 	height:1.5em;
+	color: #000000;
+	background: #FFCC00;
 }
 .status ul li{
 	margin-top: .1em;
@@ -49,12 +50,12 @@ nav div div a img{
 	dinamic form
 */
 .title{
+	width: 100%;
 	margin-top: -1.4em;
-	color: #fff;
 	padding: .2em;
+	color: #fff;
 	border-radius: .4em;
 	background-color: #B30602;
-	width: 100%;
 }
 .title h5{
 	font-size: 1.2em;

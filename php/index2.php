@@ -1,10 +1,7 @@
 <?php
-	require_once '../vendor/autoload.php';
-	
-	$fakeres = Faker\Factory::create(es_ES_yha);
+	require_once 'config.php';
 
-	$loader = new Twig_Loader_Filesystem('../views');
-	$twig = new Twig_Environment($loader, array());
+	$fakeres = Faker\Factory::create(es_ES_yha);
 
 	$name = $fakeres->firstName($gender = null);
 	$ap = $fakeres->lastName;
@@ -29,6 +26,6 @@
 	print_r($user);
 	echo '</div></pre>';
 
-	echo $twig->render('index.twig',compact('user','title'));
+	echo $twig->render('index3.twig',compact('user','title'));
 
 ?>

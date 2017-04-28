@@ -1,4 +1,5 @@
 .fad{
+	margin-top: .5em;
 	margin-bottom: 1.5em;
 	padding: 1.3em 2em;
 	color: #fff;
@@ -8,8 +9,10 @@
 }
 
 .fad [type='submit']{
-	/*margin-top: 1em;
-	margin-bottom: .5em;*/
+/*
+	margin-top: 1em;
+	margin-bottom: .5em;
+*/
 	width: 60%;
 	margin: .3em;
 	padding: .5em;
@@ -45,6 +48,9 @@ nav div div a img{
 	border-left-width: .2em;
 	border-left-style: groove;
 	border-left-color: #515151
+}
+.panel{
+	margin-top: 1.5em;
 }
 /*
 	dinamic form

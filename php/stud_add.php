@@ -4,5 +4,5 @@
 
 	$title = 'agregar alumno';
 
-	echo $twig->render('add_stud.twig',compact('','title'));
+	echo $twig->render('stud_add.twig',compact('','title'));
 ?>

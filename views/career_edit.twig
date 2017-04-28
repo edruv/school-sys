@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+{% block title %} {{title|capitalize}} {% endblock %}
+{% block content %}
+{{parent()}}
+	<form action="" class="fad col-md-6 col-md-offset-3 text-center" method="post">
+		<div class="form-group">
+			<label for="tyca">Tipo de carrera</label>
+			<select name="tyca" id="tyca" class="form-control text-center">
+				<option>Selecciona un tipo de carrara</option>
+				<option value="Licenciatura">Licenciatura</option>
+				<option value="Ingenieria">Ingenieria</option>
+				<option value="Licenciatura en Ingenieria">Licenciatura en Ingenieria</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="ncar">Nombre de la carrera</label>
+			<input type="text" name="ncar" id="ncar" class="form-control text-center">
+		</div>
+		<input type="submit" name="adca" value="{{title|capitalize}}" class="btn btn-success">
+	</form>
+{% endblock %}

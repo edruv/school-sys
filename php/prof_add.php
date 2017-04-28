@@ -4,5 +4,5 @@
 
 	$title = 'agregar profesor';
 
-	echo $twig->render('add_prof.twig',compact('','title'));
+	echo $twig->render('emp_add.twig',compact('','title'));
 ?>

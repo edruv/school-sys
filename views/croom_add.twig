@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+{% block title %} {{title|capitalize}} {% endblock %}
+{% block content %}
+{{parent()}}
+	<form action="" class="fad col-md-6 col-md-offset-3 text-center">
+	      <div class="form-group">
+	         <label for="ncr">Nombre / Numero</label>
+	         <input type="text" name="ncr" id="ncr" class="form-control">
+	      </div>
+	      <div class="form-group">
+	         <label for="edcr">Edificio donde se encuentra</label>
+	         <select name="edcr" id="edcr" class="form-control text-center">
+					{% for edif in res %}
+						<option value="{{edif.id}}">{{edif.nombre}}</option>
+					{% endfor %}
+	         </select>
+	      </div>
+	      <input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+	</form>
+{% endblock %}

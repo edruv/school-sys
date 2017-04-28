@@ -1,5 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
 {% block title %} {{title|capitalize}} {% endblock %}
 {% block content %}
+{{parent()}}
 
 {% endblock %}

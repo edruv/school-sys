@@ -2,6 +2,7 @@
 {% block title %} {{title|capitalize}} {% endblock %}
 
 {% block content %}
+{{parent()}}
 <form action="" class="text-center fad col-md-6 col-md-offset-3">
 	<div class="form-group">
 		<label for="nstu">Nombre</label>
@@ -20,14 +21,6 @@
 		<input type="email" name="" id="" class="form-control" placeholder="">
 	</div>
 	<div class="form-group">
-		<label for="psst">Contraseña</label>
-		<input type="text" name="psst" id="psst" class="form-control" placeholder="">
-	</div>
-	<div class="form-group">
-		<label for="psstc">Repetir contraseña</label>
-		<input type="text" name="psstc" id="psstc" class="form-control" placeholder="">
-	</div>
-	<div class="form-group">
 		<label for="cast">Carrera</label>
 		<select name="cast" id="cast" class="form-control text-center">
 			<option value="">Seleccionar una opcion</option>
@@ -37,6 +30,6 @@
 			<option value="">4</option>
 		</select>
 	</div>
-	<button type="submit" class="btn btn-success">Añadir alumno</button>
+	<input type="submit" value="{{title|capitalize}}" class="btn btn-success">
 </form>
 {% endblock %}

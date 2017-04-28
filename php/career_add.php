@@ -3,5 +3,5 @@
 
 	$title = 'agregar carrera';
 
-	echo $twig->render('add_career.twig',compact('title'));
+	echo $twig->render('career_add.twig',compact('title'));
 ?>

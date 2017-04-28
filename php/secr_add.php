@@ -4,5 +4,5 @@
 
 	$title = 'agregar secretaria';
 
-	echo $twig->render('add_secr.twig',compact('','title'));
+	echo $twig->render('emp_add.twig',compact('','title'));
 ?>

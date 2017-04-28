@@ -1,0 +1,38 @@
+{% extends 'layouts/base.html' %}
+{% block title %} {{title|capitalize}} {% endblock %}
+{% block content %}
+{{parent()}}
+<form action="" class="fad col-md-6 col-md-offset-3 text-center">
+   <div class="form-group">
+      <label for="">Materia</label>
+      <input type="text" name="" id="" class="form-control text-center" placeholder="Nombre de la materia">
+   </div>
+   <div class="form-group">
+      <label for="">Creditos</label>
+      <input type="text" name="" id="" class="form-control text-center" placeholder="Creditos">
+   </div>
+   <div class="form-group">
+      <label for="">Horas teoria</label>
+      <input type="text" name="" id="" class="form-control text-center" placeholder="Horas de teoria">
+   </div>
+   <div class="form-group">
+      <label for="">Horas practica</label>
+      <input type="text" name="" id="" class="form-control text-center" placeholder="Horas de practicas">
+   </div>
+   <div class="form-group">
+      <label for="">Periodo</label>
+      <select class="form-control text-center" name="" id="">
+         <option value="">Ciclo escolar</option>
+         <option value=""></option>
+      </select>
+   </div>
+   <div class="form-group">
+         <label for="">Carrera</label>
+         <select name="" id="" class="form-control text-center">
+            <option value="">Carrera a la pertenece</option>
+            <option value=""></option>
+         </select>
+   </div>
+      <input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+</form>
+{% endblock %}

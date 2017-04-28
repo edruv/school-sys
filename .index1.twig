@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +8,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<!-- <link rel="icon" href="../../favicon.ico"> -->
-		<title>School</title>
+		<title>SchoolDuck</title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 		<link href="css/signin.css" rel="stylesheet">
@@ -21,18 +21,13 @@
 	</head>
 	<body>
 		<div class="container">
-			<form class="form-signin">
-				<h2 class="form-signin-heading">Please sign in</h2>
-				<label for="inputEmail" class="sr-only">Email address</label>
-				<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-				<label for="inputPassword" class="sr-only">Password</label>
-				<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" value="remember-me"> Remember me
-					</label>
-				</div>
-				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			<form class="form-signin" method="post">
+				<h2 class="form-signin-heading">Ingresa al sistema</h2>
+				<label for="inputEmail" class="sr-only">Codigo</label>
+				<input type="text" id="inputEmail" class="form-control" placeholder="Codigo" required autofocus>
+				<label for="inputPassword" class="sr-only">Contraseña</label>
+				<input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required>
+				<button class="btn btn-lg btn-primary btn-block" name="signin" type="submit">Entrar</button>
 			</form>
 			</div> <!-- /container -->
 			<script src="js/ie10-viewport-bug-workaround.js"></script>

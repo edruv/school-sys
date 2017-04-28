@@ -1,43 +1,129 @@
-{% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
-
+{% extends 'layouts/base.twig' %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 {% block content %}
-{{parent()}}
-<form action="" class="text-center fad col-md-6 col-md-offset-3">
+{% if messa %}
+<div class='alert alert-{{messa.type}} alert-dismissible text-center' role='alert'>
+<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+{% if messa.type == 'danger' or messa.type == 'warning'%}<span class="fa fa-{{messa.icon}}"></span> {% endif %}{{messa.message|title}}. {% if messa.type == 'success' %}<span class="fa fa-{{messa.icon}}"></span>{% endif %}
+</div>
+{% endif %}
+{# {{parent()}} #}
+<h3 class="sub-header text-center">{{block('title')}} #<label data-toggle="tooltip" data-placement="right" title="El codigo del alumno puede cambiar al realizar el registro">{{li}}</label></h3>
+<form action="" class="text-center fad col-md-6 col-md-offset-3" method="post">
 	<div class="form-group">
 		<label for="nstu">Nombre</label>
-		<input type="text" name="nstu" id="nstu" class="form-control" placeholder="">
+		<input type="text" name="nstu" id="nstu"  {% if post.nombre %}value="{{post.nombre}}"{% endif %} class="form-control" placeholder="">
 	</div>
 	<div class="form-group">
 		<label for="apps">Apellido Paterno</label>
-		<input type="text" name="apps" id="apps" class="form-control" placeholder="">
+	<input type="text" name="apps" id="apps" {% if post.ap1 %}value="{{post.ap1}}"{% endif %} class="form-control" placeholder="">
 	</div>
 	<div class="form-group">
 		<label for="apms">Apellido Materno</label>
-		<input type="text" name="apms" id="apms" class="form-control" placeholder="">
+	<input type="text" name="apms" id="apms" {% if post.ap2 %}value="{{post.ap2}}"{% endif %} class="form-control" placeholder="">
 	</div>
 	<div class="form-group">
-		<label for="">Correo electronico</label>
-		<input type="email" name="" id="" class="form-control" placeholder="">
+		<label for="emastu">Correo electronico</label>
+	<input type="email" name="emastu" id="emastu" {% if post.mail %}value="{{post.mail}}"{% endif %} class="form-control" placeholder="">
 	</div>
 	<div class="form-group">
 		<label for="psst">Contraseña</label>
-		<input type="text" name="psst" id="psst" class="form-control" placeholder="">
+	<input type="text" name="psst" id="psst" class="form-control" placeholder="">
 	</div>
 	<div class="form-group">
 		<label for="psstc">Repetir contraseña</label>
-		<input type="text" name="psstc" id="psstc" class="form-control" placeholder="">
+	<input type="text" name="psstc" id="psstc" class="form-control" placeholder="">
 	</div>
 	<div class="form-group">
 		<label for="cast">Carrera</label>
 		<select name="cast" id="cast" class="form-control text-center">
-			<option value="">Seleccionar una opcion</option>
-			<option value="">1</option>
-			<option value="">2</option>
-			<option value="">3</option>
-			<option value="">4</option>
+			<option selected disabled>Seleccionar una opcion</option>
+			{% for car in carreras %}
+				<option value="{{car.id}}"{{post.carrera == car.id ? 'selected'}}>{{car.carrera}}</option>
+			{% endfor %}
 		</select>
 	</div>
-	<input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+	{% if errors %}
+	<div class="alert alert-danger text-left" role="alert">
+		<ul>
+		{% for error in errors %}
+			<li><span class="fa fa-exclamation-triangle"></span> {{error|capitalize}}.</li>
+		{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+	<input type="submit" name="addstud" value="{{title|capitalize|title}}" class="btn btn-success">
 </form>
+{% endblock %}
+{% block scripts %}
+{% if studata %}
+	<div class="modal fade" tabindex="-1" id="myModal" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Datos del estudiante</h4>
+	      </div>
+	      <div class="modal-body">
+			  <div class="table-responsive">
+				  <table class="table table-bordered table-striped">
+					  <colgroup>
+						  <col class="col-xs-2">
+						  <col class="col-xs-6">
+					  </colgroup>
+					  <tbody>
+						  <tr>
+							  <th scope="row">Codigo:</th>
+							  <td>{{studata.id}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Correo academico:</th>
+							  <td>{{studata.email_acad}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Nombre:</th>
+							  <td>{{studata.nombre}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Apellidos:</th>
+							  <td>{{studata.ap1}} {{studata.ap2}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Carrera:</th>
+							  <td>{{studata.carrera}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Status:</th>
+							  <td>{{studata.status}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Semestre admitido:</th>
+							  <td>{{studata.admition}}</td>
+						  </tr>
+					  </tbody>
+				  </table>
+			  </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<script type="text/javascript">
+	    $(window).on('load',function(){
+	        $('#myModal').modal('show');
+	    });
+	</script>
+{% endif %}
+	{{parent()}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	<script src="../js/transition.js"></script>
+	<script src="../js/modal.js"></script>
+	<script src="../js/tooltip.js"></script>
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 {% endblock %}

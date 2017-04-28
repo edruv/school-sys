@@ -1,0 +1,122 @@
+{% extends 'layouts/base.twig' %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
+{% block content %}
+{{parent()}}
+<div class="panel panel-info">
+	<div class="panel-heading text-center">
+		<h3 class="panel-title">Detalles del grupo - {{title|title}}</h3>
+	</div>
+	<div class="panel-body">
+		<div class="table-responsive">
+			<table class="table table-bordered table-striped">
+				<colgroup>
+					<col class="col-xs-2">
+					<col class="col-xs-4">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th scope="row" >ID:</th>
+						<td colspan="4">{{group.id}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Nombre:</th>
+						<td>{{group.nombre|capitalize}}</td>
+					<!-- </tr>
+					<tr> -->
+						<th scope="row">Seccion:</th>
+						<td>{{group.namsec}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Dias:</th>
+						<td>{{group.dias|title}}</td>
+					<!-- </tr>
+					<tr> -->
+						<th scope="row">Horario:</th>
+						<td>{{group.hra_ini}} - {{group.hra_fin}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Edificio:</th>
+						<td>{{group.edif|title}}</td>
+					<!-- </tr>
+					<tr> -->
+						<th scope="row">Aula:</th>
+						<td>{{group.num}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Alumnos inscritos:</th>
+						<td></td>
+					<!-- </tr>
+					<tr> -->
+						<th scope="row">Cupo:</th>
+						<td></td>
+					</tr>
+				</tbody>
+				<!-- <tbody>
+					<tr>
+						<th scope="row">ID:</th>
+						<td>{{group.id}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Nombre:</th>
+						<td>{{group.nombre|capitalize}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Seccion:</th>
+						<td>{{group.namsec}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Dias:</th>
+						<td>{{group.dias|title}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Horario:</th>
+						<td>{{group.hra_ini}} - {{group.hra_fin}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Edificio:</th>
+						<td>{{group.edif|title}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Aula:</th>
+						<td>{{group.num}}</td>
+					</tr>
+					<tr>
+						<th scope="row">Alumnos inscritos:</th>
+						<td></td>
+					</tr>
+				</tbody> -->
+			</table>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th class="text-center info" colspan="3">Alumnos inscritos a {{title|title}}</th>
+				</tr>
+				<tr>
+					<th>Codigo</th>
+					<th>Apellidos</th>
+					<th>Nombre</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for alum in alums %}
+				<tr>
+					<th>{{alum.cod}}</th>
+					<td>{{alum.ap1}} {{alum.ap2}}</td>
+					<td>{{alum.nombre}}</td>
+				</tr>
+				{% endfor %}
+				{% for aula in res %}
+				<tr>
+					<th>{{aula.id}}</th>
+					<td>{{aula.num}}</td>
+					<td>{{aula.edau|capitalize}}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% endblock %}

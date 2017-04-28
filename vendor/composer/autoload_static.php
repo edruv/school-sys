@@ -15,6 +15,10 @@ class ComposerStaticInit43d2ade359669f0187d760d98a21bf77
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
         ),
+        'P' => 
+        array (
+            'Plasticbrain\\FlashMessages\\' => 27,
+        ),
         'F' => 
         array (
             'Faker\\' => 6,
@@ -25,6 +29,10 @@ class ComposerStaticInit43d2ade359669f0187d760d98a21bf77
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Plasticbrain\\FlashMessages\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/plasticbrain/php-flash-messages/src',
         ),
         'Faker\\' => 
         array (

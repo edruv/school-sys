@@ -1,33 +1,115 @@
-{% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
-
+{% extends 'layouts/base.twig' %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 {% block content %}
+{% if messa %}
+<div class='alert alert-{{messa.type}} alert-dismissible text-center' role='alert'>
+<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+{% if messa.type == 'danger' or messa.type == 'warning'%}<span class="fa fa-{{messa.icon}}"></span> {% endif %}{{messa.message|title}}. {% if messa.type == 'success' %}<span class="fa fa-{{messa.icon}}"></span>{% endif %}
+</div>
+{% endif %}
 {{parent()}}
-<form action="" class="text-center fad col-md-6 col-md-offset-3">
+<form action="" class="text-center fad col-md-6 col-md-offset-3" method="post">
 	<div class="form-group">
-		<label for="npro">Nombre</label>
-		<input type="text" name="npro" id="npro" class="form-control" placeholder="">
+		<label for="naem">Nombre</label>
+		<input type="text" name="naem" id="naem" {% if post.nombre %}value="{{post.nombre}}"{% endif %} class="form-control text-center" placeholder="">
 	</div>
 	<div class="form-group">
-		<label for="appp">Apellido Paterno</label>
-		<input type="text" name="appp" id="appp" class="form-control" placeholder="">
+		<label for="appe">Apellido Paterno</label>
+		<input type="text" name="appe" id="appe" {% if post.ap1 %} value="{{post.ap1}}"{% endif %}class="form-control text-center" placeholder="">
 	</div>
 	<div class="form-group">
-		<label for="apmp">Apellido Materno</label>
-		<input type="text" name="apmp" id="apmp" class="form-control" placeholder="">
+		<label for="apme">Apellido Materno</label>
+		<input type="text" name="apme" id="apme" {% if post.ap2 %}value="{{post.ap2}}"{% endif %} class="form-control text-center" placeholder="">
 	</div>
 	<div class="form-group">
-		<label for="empr">Correo electronico</label>
-		<input type="email" name="empr" id="empr" class="form-control" placeholder="">
+		<label for="ememp">Correo electronico</label>
+		<input type="email" name="ememp" id="ememp" {% if post.mail %}value="{{post.mail}}"{% endif %} class="form-control text-center" placeholder="">
 	</div>
 	<div class="form-group">
-		<label for="pspr">Contraseña</label>
-		<input type="text" name="pspr" id="pspr" class="form-control" placeholder="">
+		<label for="psemp">Contraseña</label>
+	<input type="text" name="psemp" id="psemp" class="form-control text-center" placeholder="">
 	</div>
 	<div class="form-group">
-		<label for="psprc">Repetir contraseña</label>
-		<input type="text" name="psprc" id="psprc" class="form-control" placeholder="">
+		<label for="psempc">Repetir contraseña</label>
+	<input type="text" name="psempc" id="psempc" class="form-control text-center" placeholder="">
 	</div>
-	<input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+	{% if errors %}
+   <div class="alert alert-danger text-left" role="alert">
+      <ul>
+      {% for error in errors %}
+         <li><span class="fa fa-exclamation-triangle"></span> {{error|capitalize}}.</li>
+      {% endfor %}
+      </ul>
+   </div>
+   {% endif %}
+	<input type="submit" name="addemp" value="{{title|capitalize|title}}" class="btn btn-success">
 </form>
+{% endblock %}
+{% block scripts %}
+{% if empdata %}
+	<div class="modal fade" tabindex="-1" id="myModal" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Datos del estudiante</h4>
+	      </div>
+	      <div class="modal-body">
+			  <div class="table-responsive">
+				  <table class="table table-bordered table-striped">
+					  <colgroup>
+						  <col class="col-xs-2">
+						  <col class="col-xs-6">
+					  </colgroup>
+					  <tbody>
+						  <tr>
+							  <th scope="row">Codigo:</th>
+							  <td>{{empdata.id}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Correo academico:</th>
+							  <td>{{empdata.email_acad}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Nombre:</th>
+							  <td>{{empdata.nombre}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Apellidos:</th>
+							  <td>{{empdata.ap1}} {{empdata.ap2}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Status:</th>
+							  <td>{{empdata.status}}</td>
+						  </tr>
+						  <tr>
+							  <th scope="row">Correo personal:</th>
+							  <td>{{empdata.email}}</td>
+						  </tr>
+					  </tbody>
+				  </table>
+			  </div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+	<script type="text/javascript">
+	    $(window).on('load',function(){
+	        $('#myModal').modal('show');
+	    });
+	</script>
+{% endif %}
+	{{parent()}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	<script src="../js/transition.js"></script>
+	<script src="../js/modal.js"></script>
+	<script src="../js/tooltip.js"></script>
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 {% endblock %}

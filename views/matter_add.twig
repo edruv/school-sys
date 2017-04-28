@@ -1,38 +1,55 @@
-{% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
+{% extends 'layouts/base.twig' %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 {% block content %}
+{% if messa %}
+<div class='alert alert-{{messa.type}} alert-dismissible text-center' role='alert'>
+<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+{% if messa.type == 'danger' %}<span class="fa fa-{{messa.icon}}"></span> {% endif %}{{messa.message|title}}. {% if messa.type == 'success' %}<span class="fa fa-{{messa.icon}}"></span>{% endif %}
+</div>
+{% endif %}
 {{parent()}}
-<form action="" class="fad col-md-6 col-md-offset-3 text-center">
+<form action="" class="fad col-md-6 col-md-offset-3 text-center" method="post">
    <div class="form-group">
-      <label for="">Materia</label>
-      <input type="text" name="" id="" class="form-control text-center" placeholder="Nombre de la materia">
+      <label for="namat">Materia</label>
+      <input type="text" name="namat" id="namat" class="form-control text-center"{% if post.materia %}value="{{post.materia}}"{% endif %} placeholder="Nombre de la materia">
    </div>
    <div class="form-group">
-      <label for="">Creditos</label>
-      <input type="text" name="" id="" class="form-control text-center" placeholder="Creditos">
+      <label for="cred">Creditos</label>
+      <input type="text" name="cred" id="cred" class="form-control text-center" {% if post.credi %}value="{{post.credi}}"{% endif %} placeholder="Creditos">
    </div>
    <div class="form-group">
-      <label for="">Horas teoria</label>
-      <input type="text" name="" id="" class="form-control text-center" placeholder="Horas de teoria">
+      <label for="hteo">Horas teoria</label>
+      <input type="text" name="hteo" id="hteo" class="form-control text-center" {% if post.teo %} value="{{post.teo}}"{% endif %} placeholder="Horas de teoria">
    </div>
    <div class="form-group">
-      <label for="">Horas practica</label>
-      <input type="text" name="" id="" class="form-control text-center" placeholder="Horas de practicas">
+      <label for="hpra">Horas practica</label>
+      <input type="text" name="hpra" id="hpra" class="form-control text-center" {% if post.pract %}value="{{post.pract}}"{% endif %} placeholder="Horas de practicas">
    </div>
-   <div class="form-group">
+   <!-- <div class="form-group">
       <label for="">Periodo</label>
       <select class="form-control text-center" name="" id="">
          <option value="">Ciclo escolar</option>
          <option value=""></option>
       </select>
-   </div>
+   </div> -->
    <div class="form-group">
-         <label for="">Carrera</label>
-         <select name="" id="" class="form-control text-center">
+         <label for="carr">Carrera</label>
+         <select name="carr" id="carr" class="form-control text-center">
             <option value="">Carrera a la pertenece</option>
-            <option value=""></option>
+            {% for carrera in carreras %}
+               <option value="{{carrera['id']}}"{% if post.carre == carrera.id %} selected="selected"{% endif %}>{{carrera['carrera']}}</option>
+            {% endfor %}
          </select>
    </div>
-      <input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+   {% if errors %}
+   <div class="alert alert-danger text-left" role="alert">
+      <ul>
+      {% for error in errors %}
+         <li><span class="fa fa-exclamation-triangle"></span> {{error|capitalize}}.</li>
+      {% endfor %}
+      </ul>
+   </div>
+   {% endif %}
+      <input type="submit" name="matadd" value="{{title|capitalize|title}}" class="btn btn-success">
 </form>
 {% endblock %}

@@ -67,23 +67,45 @@ nav div div a img{
 	font-size: 1.2em;
 }
 
-div div div ul li a{
+.sub-menu a{
 	color: black;
 }
+/*div div div ul li a{
+	color: black;
+}*/
 
-div div div ul li a:hover{
+.sub-menu a:hover{
 	color: #b71815;
 	font-size: 1.2em;
 }
+/*div div div ul li a:hover{
+	color: #b71815;
+	font-size: 1.2em;
+}*/
 
-div div div ul li a:focus{
+.sidebar ul li a{
+	color: black;
+}
+
+.sub-menu a:focus{
 	color: #000;
 	font-size: 1.1em;
 	font-weight: bold;
 }
-div div div ul li a:active{
+/*div div div ul li a:focus{
+	color: #000;
+	font-size: 1.1em;
+	font-weight: bold;
+}*/
+.sub-menu a:active{
 	color: #b71815;
 }
+/*div div div ul li a:active{
+	color: #b71815;
+}*/
 .list-group-submenu {
-	margin-left:20px;
+	margin-left:35px;
+}
+.alert-danger ul li{
+	list-style: none;
 }

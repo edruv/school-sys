@@ -49,22 +49,23 @@
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right hidden-xs">
+					<li><a href=""><span class="fa fa-refresh"></span>&nbsp; Recargar</a></li>
 					<li class="label">
 						<h4>Bienbenid@ {{user.user}}</h4>
 					</li>
-					<li><a href="#"><span class="fa fa-home"></span> Inicio</a></li>
-					<li><a href="../">Salir <span class="fa fa-sign-out"></span></a></li>
+					<li><a href="#"><span class="fa fa-home"></span>&nbsp; Inicio</a></li>
+					<li><a href="../">Salir &nbsp;<span class="fa fa-sign-out"></span></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right visible-xs text-center">
 					<li class="label">
 						<h5>Bienbenid@ {{user.user}}</h5>
 					</li>
-					<li><a href="#"><span class="fa fa-home"></span> Inicio</a></li>
-					<li><a href=""><span class="fa fa-gear"></span> Admin Panel</a></li>
-					<li><a href=""><span class="fa fa-users"></span> Clientes</a></li>
-					<li><a href=""><span class="fa fa-list-ul"></span> Preguntas</a></li>
-					<li><a href=""><span class="fa fa-list-alt"></span> Cuestionarios</a></li>
-					<li><a href="../">Salir <span class="fa fa-sign-out"></span></a></li>
+					<li><a href="#"><span class="fa fa-home"></span>&nbsp; Inicio</a></li>
+					<li><a href=""><span class="fa fa-gear"></span>&nbsp; Admin Panel</a></li>
+					<li><a href=""><span class="fa fa-users"></span>&nbsp; Clientes</a></li>
+					<li><a href=""><span class="fa fa-list-ul"></span>&nbsp; Preguntas</a></li>
+					<li><a href=""><span class="fa fa-list-alt"></span>&nbsp; Cuestionarios</a></li>
+					<li><a href="../">Salir &nbsp;<span class="fa fa-sign-out"></span></a></li>
 				</ul>
 			</div>
 		</div>
@@ -86,16 +87,16 @@
 	<div class="col-sm-3 col-md-2 sidebar">
 		<ul class="nav nav-sidebar">
 			<li class="title text-center">
-				<h5><span class="fa fa-graduation-cap"></span> Alumnos</h5>
+				<h5><span class="fa fa-graduation-cap"></span>&nbsp; Alumnos</h5>
 			</li>
-			<li data-toggle="collapse" data-target="#academico" class="collapsed"><a href="#"><span class="fa fa-graduation-cap"></span> Academico <span class="fa fa-caret-down"></span></a></li>
+			<li data-toggle="collapse" data-target="#academico" class="collapsed"><a href="#"><span class="fa fa-graduation-cap"></span>&nbsp; Academico <span class="fa fa-caret-down"></span></a></li>
 			<ul class="sub-menu collapse nav list-group-submenu" id="academico">
 				<li><a href="">Lorem ipsum dolor.</a></li>
 				<li><a href="">Lorem ipsum dolor.</a></li>
 				<li><a href="">Promedio</a></li>
 			</ul>
 			{# li[data-toggle="collapse" data-target="#"].collapsep(>a[href="#"]>span.fa.fa-+{ }+{}+{ }+span.fa.fa-caret-down)+ul.sub-menu.collapse.nav.list-group-submenu#>li*3>a{Lorem ipsum dolor.} #}
-			<li data-toggle="collapse" data-target="#registro" class="collapsep"><a href="#"><span class="fa fa-pencil"></span> Registro <span class="fa fa-caret-down"></span></a></li>
+			<li data-toggle="collapse" data-target="#registro" class="collapsep"><a href="#"><span class="fa fa-pencil"></span>&nbsp; Registro <span class="fa fa-caret-down"></span></a></li>
 			<ul class="sub-menu collapse nav list-group-submenu" id="registro">
 				<li><a href="">Horario</a></li>
 				<li><a href="">Lorem ipsum dolor.</a></li>
@@ -104,7 +105,7 @@
 		</ul>
 		<ul class="nav nav-sidebar">
 			<li class="title text-center">
-				<h5><span class="fa fa-book"></span> Docentes</h5>
+				<h5><span class="fa fa-book"></span>&nbsp; Docentes</h5>
 			</li>
 			{# li[data-toggle="collapse" data-target="#"].collapsep(>a[href="#"]>span.fa.fa-+{ }+{}+{ }+span.fa.fa-caret-down)+ul.sub-menu.collapse.nav.list-group-submenu#>li*3>a{Lorem ipsum dolor.} #}
 			<li><a href="">lorem</a></li>
@@ -114,7 +115,7 @@
 		</ul>
 		<ul class="nav nav-sidebar">
 			<li class="title text-center">
-				<h5><span class="fa fa-paperclip"></span> Control escolar</h5>
+				<h5><span class="fa fa-paperclip"></span>&nbsp; Control escolar</h5>
 			</li>
 			<li><a href="">lorem</a></li>
 			<li><a href="">lorem</a></li>
@@ -123,7 +124,7 @@
 		</ul>
 		<ul class="nav nav-sidebar">
 			<li class="title text-center">
-				<h5><span class="fa fa-gear"></span> Admin panel</h5>
+				<h5><span class="fa fa-gear"></span>&nbsp; Admin panel</h5>
 			</li>
 			<li><a href="">lorem</a></li>
 			<li><a href="">lorem</a></li>
@@ -139,16 +140,18 @@
 			{% block content %}
 			<h3 class="sub-header text-center">{{block('title')}}</h3>
 			{% endblock %}
-			<a href="" class="btn btn-primary col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4"><span class="fa fa-arrow-circle-left"></span> Menu principal</a>
+			<a href="" class="btn btn-primary col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4"><span class="fa fa-arrow-circle-left"></span>&nbsp; Menu principal</a>
 		</div>
 	</div>
+{% block scripts %}
 	<script src='http://localhost:35729/livereload.js'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script>
 		window.jQuery || document.write('<script src="../js/vendor/jquery.min.js"><\/script>')
 	</script>
 	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/vendor/holder.min.js"></script>
+	<script src="../js/holder.min.js"></script>
 	<script src="../js/ie10-viewport-bug-workaround.js"></script>
+	{% endblock %}
 </body>
 </html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="icon" href="../img/icon.png">
+	<title>{% block title %}{{title|capitalize}}{% endblock %} | SchoolDuck</title>
+	<link href="../css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="../css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+	<link href="../css/jumbotron.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/common.css">
+	<!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+	<script src="../js/ie-emulation-modes-warning.js"></script>
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				</button>
+				<a href="../."><img src="../img/logo.png" alt="SchoolLogo.png" title="Duck school" width="65px"></a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+			</div><!--/.navbar-collapse -->
+		</div>
+	</nav>
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+	{% if messa %}
+	<div class='alert alert-{{messa.type}} alert-dismissible text-center' role='alert'>
+		<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+		{% if messa.type == 'danger' %}<span class="fa fa-{{messa.icon}}"></span> {% endif %}{{messa.message|capitalize}}. {% if messa.type == 'success' %}<span class="fa fa-{{messa.icon}}"></span>{% endif %}
+	</div>
+	{% endif %}
+	<div class="container">
+		<h3 class="sub-header text-center">{{block('title')}}</h3>
+		<!-- Example row of columns -->
+		<div class="row">
+			<form action="" class="fad col-md-6 col-md-offset-3 text-center form-horizontal" method="post">
+				<div class="form-group">
+					<label for="tyca">Carrera</label>
+					<select name="tyca" id="tyca" class="form-control text-center">
+						<option selected disabled>Selecciona una carrara</option>
+						{% for car in carrs %}
+							<option value="{{car.id}}">{{car.carrera}}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-xs-12 col-md-12">Materia</label>
+					<label for="ofcl" class="col-xs-6 col-md-6">Clave</label>
+					<label for="ofmat" class="col-xs-6 col-md-6">Materia</label>
+					<div class="col-xs-6 col-md-6">
+						<input type="text" name="ofcl" id="ofcl" class="form-control text-center">
+					</div>
+					<div class="col-xs-6 col-md-6">
+						<input type="text" name="ofmat" id="ofmat" class="form-control text-center">
+					</div>
+				</div>
+				<!-- div.form-group>label+input:t.form-control.text-center -->
+				<input type="submit" name="adca" value="Consultar" class="btn btn-success">
+				{% if errors %}
+				<div class="alert alert-danger text-left" role="alert">
+					<ul>
+						{% for error in errors %}
+						<li><span class="fa fa-exclamation-triangle"></span> {{error|capitalize}}.</li>
+						{% endfor %}
+					</ul>
+				</div>
+				{% endif %}
+			</form>
+		</div>
+		<a href="../" class="btn btn-default"><span class="fa fa-arrow-circle-left fa-fw"></span> Regresar a la pagina principal</a>
+	</div> <!-- /container -->
+		<!-- Bootstrap core JavaScript
+
+		<!-- Bootstrap core JavaScript
+		================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="../js/vendor/jquery.min.js"><\/script>')</script>
+		<script src="../js/bootstrap.min.js"></script>
+		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+		<script src="../js/ie10-viewport-bug-workaround.js"></script>
+	</body>
+</html>

@@ -1,5 +1,5 @@
-{% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
+{% extends 'layouts/base.twig' %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 {% block content %}
 {{parent()}}
 	<form action="" class="fad col-md-6 col-md-offset-3 text-center" method="post">
@@ -16,6 +16,6 @@
 			<label for="ncar">Nombre de la carrera</label>
 			<input type="text" name="ncar" id="ncar" class="form-control text-center">
 		</div>
-		<input type="submit" name="adca" value="{{title|capitalize}}" class="btn btn-success">
+		<input type="submit" name="adca" value="{{title|capitalize|title}}" class="btn btn-success">
 	</form>
 {% endblock %}

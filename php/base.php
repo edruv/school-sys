@@ -4,5 +4,5 @@
 
 	$title = '';
 
-	echo $twig->render('',compact('title'));
+	echo $twig->render('',compact('title','user'));
 ?>

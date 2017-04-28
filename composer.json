@@ -1,6 +1,7 @@
 {
     "require": {
         "twig/twig": "*",
-        "fzaninotto/faker": "^1.6"
+        "fzaninotto/faker": "^1.6",
+        "plasticbrain/php-flash-messages": "^1.0"
     }
 }

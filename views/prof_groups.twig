@@ -1,0 +1,46 @@
+{% extends 'layouts/base.twig' %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
+{% block content %}
+{{parent()}}
+{% if groups != null %}
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title text-center">{{title|upper}}</h3>
+	</div>
+	<!-- Table -->
+	<div class="table-responsive">
+		<table class="table table-striped table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>Materia</th>
+					<th>Seccion</th>
+					<th>Dias</th>
+					<th>Horario</th>
+					<th>Aula</th>
+					<th>Detalles</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for group in groups %}
+					<tr>
+						<td>{{group.materia}}</td>
+						<td>{{group.namsec}}</td>
+						<td>{{group.dias}}</td>
+						<td>{{group.hra_ini}}-{{group.hra_fin}}</td>
+						<td>{{group.aula}}</td>
+						<td><a href="prof_group_details.php?id={{group.id}}" class="btn-link"><span class="fa fa-external-link"></span></a></td>
+						<!-- <td><button type="button" class="btn-link" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" data-placement="right" title="Ver detalles del empleado"><span class="fa fa-external-link fa-lg"></span></button></td> -->
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+{% else %}
+<div class="alert alert-info text-center" role="alert">
+	<ul>
+		<li><span class="fa fa-lg"></span> No tienes ningun groupo asignado.</li>
+	</ul>
+</div>
+{% endif %}
+{% endblock %}

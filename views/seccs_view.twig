@@ -1,0 +1,57 @@
+{% extends 'layouts/base.twig' %}
+{% block title %}
+	{{title|capitalize|title}}
+{% endblock %}
+{% block content %}
+	{{parent()}}
+	<div class="panel panel-primary">
+		<!-- Default panel contents -->
+		<div class="panel-heading">
+			<h3 class="panel-title text-center">{{title|title}}</h3>
+		</div>
+
+		<!-- Table -->
+		<div class="table-responsive">
+			<table class="table table-striped table-bordered table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Materia</th>
+						<th>Seccion</th>
+						<th>Cupo</th>
+						<th>Disp</th>
+						<th>Horario</th>
+						<th>Dias</th>
+						<th>Edif</th>
+						<th>Aula</th>
+						<th>Periodo</th>
+						<th>Carrera</th>
+						<th>Maestro</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for sec in visec %}
+						<tr>
+							<th>{{sec.id}}</th>
+							<td>{{sec.materia|capitalize}}</td>
+							<td>{{sec.namsec}}</td>
+							<td>{{sec.cupo}}</td>
+							<td>{{sec.disp}}</td>
+							<td>{{sec.hra_ini}}-{{sec.hra_fin}}</td>
+							<td>{{sec.dias|upper}}</td>
+							<td>{{sec.edif|capitalize}}</td>
+							<td>{{sec.aula|capitalize}}</td>
+							<td>{{sec.f_ini}}-{{sec.f_fin}}</td>
+							<td>{{sec.carrera}}</td>
+							<td>{{sec.ap1|capitalize}} {{sec.ap2|capitalize}}, {{sec.nombre|capitalize}} ({{sec.cod}})</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<!-- <table class="table">
+			...
+		</table> -->
+	</div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'layouts/base.twig' %}
+{% block head %}
+      {{parent()}}
+      <style>
+		.fad [type='submit']{
+			margin-top: 1.25em;
+			font-size: 1.1em;
+		}
+		.fad label{
+			font-size: 1.25em;
+			margin-bottom: .8em;
+		}
+	</style>
+{% endblock %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
+{% block content %}
+   {{parent()}}
+   <form action="" class="fad col-sm-12 col-sm-offset-1 col-md-4 col-md-offset-1 text-center">
+      <div class="form-group">
+         <label for="sxcod">Buscar por codigo</label>
+         <input type="text" name="sxcod" id="sxcod" class="form-control">
+         <input type="submit" value="Buscar" class="btn btn-success">
+      </div>
+   </form>
+   <form action="" class="fad col-sm-12 col-sm-offset-1 col-md-4 col-md-offset-2 text-center">
+      <div class="form-group">
+         <label for="sxem">Buscar por email</label>
+         <input type="text" name="sxem" id="sxem" class="form-control">
+         <input type="submit" value="Buscar" class="btn btn-success">
+      </div>
+   </form>
+   <div class="col-md-12">
+      <div class="panel panel-primary">
+<div class="panel-heading">
+<h3 class="panel-title text-center">{{title|upper}}</h3>
+</div>
+<!-- Table -->
+<div class="table-responsive">
+<table class="table table-striped table-hover">
+   <thead>
+      <tr>
+         <th>Codigo</th>
+         <th>Apellido paterno</th>
+         <th>Nombre(s)</th>
+         <!-- <th>Apellido materno</th> -->
+         <th>Detalles</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <th>0</th>
+         <td>1</td>
+         <td>2</td>
+         <!-- <td>3</td> -->
+         <td class='text-left'><a href="" target='_top'><span class="fa fa-external-link"></span></a></td>
+      </tr>
+   </tbody>
+</table>
+</div>
+</div>
+   </div>
+{% endblock %}

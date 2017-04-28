@@ -1,101 +1,77 @@
-<?php 
-	echo 'http host = '.$_SERVER['HTTP_HOST']."\n";
-	echo 'php self = '.$_SERVER['PHP_SELF']."\n";
-	echo 'dir name - php self = '.dirname($_SERVER['PHP_SELF'])."\n";
-	echo 'Document root = '.$_SERVER['DOCUMENT_ROOT']."\n";
-	echo 'dir name = '.dirname(__file__)."\n";
-	echo 'rtrim - dir name-php_self = '.rtrim(dirname($_SERVER['PHP_SELF']), '/\\')."\n";
+<?php
+	require_once 'vendor/autoload.php';
+
+	$dbd = array(
+      'db' => 'schooltest',
+      'us' => 'root',
+      'ps' => 'kilo'
+   );
+
+	function conexion ($dbd){
+		try {
+			$conexion = new PDO('mysql:host=localhost;dbname='.$dbd['db'],$dbd['us'],$dbd['ps'],array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+			return $conexion;
+		} catch (PDOException $e) {
+			return false;
+		}
+	}
+
+	$conn = conexion($dbd);
+
+	$loader = new Twig_Loader_Filesystem('views');
+	$twig = new Twig_Environment($loader);
+
+	$title = 'Pagina de inicio';
+
+	if (isset($_POST['signin'])) {
+		$cod = trim($_POST['signcod']);
+		$ps = trim($_POST['signpass']);
+		$errors = array();
+		$messa = array();
+
+		// if (preg_match('/^([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}$/',$cod)) {
+			// (!empty($cod)) ? $a++ : array_push($errors,'ingresa tu correo academico') ;
+		// }
+		(!empty($cod)) ? (ctype_digit($cod)) ? $a++ : array_push($errors,'ingresa solo numeros') : array_push($errors,'ingresa tu codigo de estudiante') ;
+		(!empty($ps)) ? $a++ : array_push($errors,'ingresa tu contraseña') ;
+
+		if ($a > 1) {
+			$stat = $conn->prepare('SELECT stu.id codigo, us.email_acad, us.pass, us.type from user us
+				inner join student stu on us.id=stu.user where stu.id=:id');
+			$stat->execute(array(':id'=>$cod));
+			$busid = $stat->fetch(PDO::FETCH_ASSOC);
+			if (!empty($busid)) {
+				$stat = $conn ->prepare('SELECT us.id, us.nombre, us.ap1, us.ap2, stu.id codigo, sta.status, ca.id cacod, ca.carrera, stu.admition, us.type from user us
+					inner join student stu on us.id=stu.user
+					inner join status sta on us.status=sta.id
+					inner join status st on us.status=st.id
+					inner join carrera ca on stu.carrera=ca.id
+					where stu.id=:id');
+				$stat->execute(array(':id' => $busid['codigo']));
+				$fid = $stat->fetch(PDO::FETCH_ASSOC);
+				$ps = sha1($ps);
+				if ($ps == $busid['pass']) {
+					session_start();
+					$_SESSION['type'] = $busid['type'];
+					$_SESSION['arse'] = $fid;
+					header('Location: php/');
+				}
+				else {
+					$messa = [
+						'type' => 'danger',
+						'message' => 'el codigo o contraseña del estudiante no son correctos',
+						'icon' => 'exclamation-triangle'
+					];
+				}
+			}else {
+				$messa = [
+					'type' => 'danger',
+					'message' => 'el codigo o contraseña del estudiante no son correctos',
+					'icon' => 'exclamation-triangle'
+				];
+			}
+		}
+	}
+
+	echo $twig->render('index1.twig',compact('title','errors','messa'));
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<!--    <link rel="icon" href="../../favicon.ico">-->
-	<title>School</title>
-	<!-- Bootstrap core CSS -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-	<!-- Custom styles for this template -->
-	<link href="css/jumbotron.css" rel="stylesheet">
-	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-	<!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<script src="js/ie-emulation-modes-warning.js"></script>
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-</head>
-<body>
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				<span class="sr-only">Toggle navigation</span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">School</a>
-			</div>
-			<div id="navbar" class="navbar-collapse collapse">
-				<form class="navbar-form navbar-right" method="post">
-					<div class="form-group">
-						<input type="text" placeholder="Codigo" class="form-control">
-					</div>
-					<div class="form-group">
-						<input type="password" placeholder="Contraseña" class="form-control">
-					</div>
-					<button type="submit" class="btn btn-success">Entrar</button>
-				</form>
-			</div><!--/.navbar-collapse -->
-		</div>
-	</nav>
-	<!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Hello, world!</h1>
-			<p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-			<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-		</div>
-	</div>
-	<div class="container">
-		<!-- Example row of columns -->
-		<div class="row">
-			<div class="col-md-4">
-				<h2>Heading</h2>
-				<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-				<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-			</div>
-			<div class="col-md-4">
-				<h2>Heading</h2>
-				<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-				<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-			</div>
-			<div class="col-md-4">
-				<h2>Heading</h2>
-				<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-				<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-			</div>
-		</div>
-		<hr>
-		<footer>
-			<p>&copy; 2016 Company, Inc.</p>
-		</footer>
-		</div> <!-- /container -->
-		<!-- Bootstrap core JavaScript
-		================================================== -->
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="js/vendor/jquery.min.js"><\/script>')</script>
-		<script src="js/bootstrap.min.js"></script>
-		<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-		<script src="js/ie10-viewport-bug-workaround.js"></script>
-	</body>
-</html>

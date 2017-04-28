@@ -1,21 +1,38 @@
 {% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
+{% block head %}
+	{{parent()}}
+	<style>
+		.form-person .form-group select {
+			display: inline-block;
+			width: 49%;
+		}
+	</style>
+{% endblock %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 {% block content %}
+{% if messa %}
+<div class='alert alert-{{messa.type}} alert-dismissible text-center' role='alert'>
+<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+{% if messa.type == 'danger' %}<span class="fa fa-{{messa.icon}}"></span> {% endif %}{{messa.message|title}}. {% if messa.type == 'success' %}<span class="fa fa-{{messa.icon}}"></span>{% endif %}
+</div>
+{% endif %}
 {{parent()}}
 	<form action="#" class="fad col-md-6 col-md-offset-3 text-center" method="post">
-		<div class="form-inline">
+		<div class="form-person">
+			<label for="tyca">Tipo de carrera</label>
 			<div class="form-group text-center col-lg-12">
 				<label for="tyca" class="visible-xs">Tipo de carrera</label>
-				<select name="tyca" id="tyca" class="form-control text-center" required>
+				<select name="tyca" id="tyca" class="form-control text-center" >
 					<option value="">Tipo de carrera</option>
-					<option value="Lic.">Licenciatura</option>
-					<option value="Ing.">Ingenieria</option>
-					<option value="Lic. en Ing.">Licenciatura en Ingenieria</option>
+					<option value="lic.">Licenciatura</option>
+					<option value="ing.">Ingenieria</option>
+					<option value="lic. en ing.">Licenciatura en Ingenieria</option>
 				</select>
 				<label for="join" class="visible-xs">preposicion</label>
-				<select name="join" id="join" class="form-control text-center" required>
+				<select name="join" id="join" class="form-control text-center" >
+				<!-- <select name="join" id="join" class="form-control text-center" required> -->
 					<option value="">Preposicion</option>
-					<option value="0">N/A</option>
+					<option value="n/a">N/A</option>
 					<option value="en">en</option>
 					<option value="de">de</option>
 				</select>
@@ -23,8 +40,17 @@
 		</div>
 		<div class="form-group">
 			<label for="ncar">Nombre de la carrera</label>
-			<input type="text" name="ncar" id="ncar" class="form-control text-center" placeholder="Solo nombre de la carrera" required>
+			<input type="text" name="ncar" id="ncar" value="" class="form-control text-center" placeholder="Solo nombre de la carrera" >
 		</div>
-		<input type="submit" name="adca" value="{{title|capitalize}}" class="btn btn-success">
+		{% if errors %}
+			<div class="alert alert-danger text-left" role="alert">
+				<ul>
+				{% for error in errors %}
+					<li><span class="fa fa-exclamation-triangle"></span> {{error|capitalize}}.</li>
+				{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+		<input type="submit" name="adca" value="{{title|capitalize|title}}" class="btn btn-success">
 	</form>
 {% endblock %}

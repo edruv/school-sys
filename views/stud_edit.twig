@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 
 {% block content %}
 {{parent()}}
@@ -30,6 +30,6 @@
 			<option value="">4</option>
 		</select>
 	</div>
-	<input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+	<input type="submit" value="{{title|capitalize|title}}" class="btn btn-success">
 </form>
 {% endblock %}

@@ -1,0 +1,159 @@
+{% extends 'layouts/base.html' %}
+{% block head %}
+	{{parent()}}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+	<style>
+		/*.form-person .form-group select {
+			display: inline-block;
+			width: 49%;
+		}*/
+		.diasds-selector input {
+			display: none!important;
+		}
+		.diasds-selector input[type=checkbox] + label {
+			display: inline-block;
+			border-radius: 6px;
+			background: #ffffff;
+			height: 40px;
+			width: 5em;
+			margin-right: 3px;
+			line-height: 40px;
+			text-align: center;
+			cursor: pointer;
+			color: black;
+		}
+		.diasds-selector input[type=checkbox]:checked + label {
+			background: #337ab7;
+			color: #ffffff;
+		}
+		@media screen and ( max-width: 768px) {
+			.diasds-selector input[type=checkbox] + label {
+				width: 4em;
+			}
+		}
+	</style>
+{% endblock %}
+{% block title %}
+	{{title|capitalize|title}}
+{% endblock %}
+{% block content %}
+{% if messa %}
+<div class='alert alert-{{messa.type}} alert-dismissible text-center' role='alert'>
+<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+{% if messa.type == 'danger' or messa.type =='warning' %}<span class="fa fa-{{messa.icon}}"></span> &nbsp;{% endif %}{{messa.message|title}}. &nbsp;{% if messa.type == 'success' %}<span class="fa fa-{{messa.icon}}"></span>{% endif %}
+</div>
+{% endif %}
+	{{parent()}}
+	<form action="" class="fad col-md-6 col-md-offset-3 text-center" method="post">
+		<div class="form-group">
+			<label for="rmat">Materia</label>
+			<select name="rmat" id="rmat" class="form-control text-center selectpicker" data-live-search="true" data-size="10">
+				<option disabled selected>Selecciona la materia</option>
+				{% for matter in matters %}
+					<option data-subtext="{{matter.carrera}}" value="{{matter.id}}" {{post.materia == matter.id ? 'selected'}}>{{matter.nombre|title}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="rcup">Cupo</label>
+			<input type="text" name="rcup" id="rcup" class="form-control text-center" {% if post.cupo %}value="{{post.cupo}}"{% endif %} placeholder="Numero de estudiantes por seccion">
+		</div>
+		<div class="form-group">
+			<label for="">Dias &nbsp;<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Dias que se imparte la clase"></span></label><br>
+			<div class="diasds-selector">
+				<input type="checkbox" name="weekday[]" value="lu" {% if post.dias %}{% for dia in post.dias %}{% if dia == 'lu' %}checked{% endif %}{% endfor %}{% endif %} id="weekday-mon" class="weekday"/>
+				<label for="weekday-mon">L</label>
+				<input type="checkbox" name="weekday[]" value="ma" {% if post.dias %}{% for dia in post.dias %}{% if dia == 'ma' %}checked{% endif %}{% endfor %}{% endif %} id="weekday-tue" class="weekday"/>
+				<label for="weekday-tue">Ma</label>
+				<input type="checkbox" name="weekday[]" value="mi" {% if post.dias %}{% for dia in post.dias %}{% if dia == 'mi' %}checked{% endif %}{% endfor %}{% endif %} id="weekday-wed" class="weekday"/>
+				<label for="weekday-wed">Mi</label>
+				<input type="checkbox" name="weekday[]" value="ju" {% if post.dias %}{% for dia in post.dias %}{% if dia == 'ju' %}checked{% endif %}{% endfor %}{% endif %} id="weekday-thu" class="weekday"/>
+				<label for="weekday-thu">J</label>
+				<input type="checkbox" name="weekday[]" value="vi" {% if post.dias %}{% for dia in post.dias %}{% if dia == 'vi' %}checked{% endif %}{% endfor %}{% endif %} id="weekday-fri" class="weekday"/>
+				<label for="weekday-fri">V</label>
+				<input type="checkbox" name="weekday[]" value="sa" {% if post.dias %}{% for dia in post.dias %}{% if dia == 'sa' %}checked{% endif %}{% endfor %}{% endif %} id="weekday-sat" class="weekday"/>
+				<label for="weekday-sat">S</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="reau">Edificio/Aula &nbsp;<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Salon donde se imparte la clase"></span></label>
+			<!-- <label for="reau">Edificio/Aula</label> -->
+			<select name="reau" id="reau" class="form-control text-center selectpicker" data-live-search="true" data-size="10">
+				<option disabled selected>Selecciona un aula</option>
+				{% for auedif in aued %}
+				<option value="{{auedif.edau}}" {{post.aula == auedif.edau ? 'selected' }}>{{auedif.edau|capitalize}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{#
+		<div class="form-person">
+			<label for="" class="">Horario</label>
+			<div class="form-group">
+				<select name="hini" id="hini" class="form-control text-center selectpicker" data-width="49%" data-size="6">
+					<option disabled selected>Hora de inicio</option>
+					{% for hora in hoini %}
+						<option value="{{hora}}" {{post.hini == hora ? 'selected'}}>{{hora}}</option>
+					{% endfor %}
+				</select>
+				<!-- <label for="" class="visible-xs">Hora de fin</label> -->
+				<select name="hfin" id="hfin" class="form-control text-center selectpicker" data-width="49%" data-size="6">
+					<option disabled selected>Hora de fin</option>
+					{% for hora in hofin %}
+						<option value="{{hora}}" {{post.hfin == hora ? 'selected'}}>{{hora}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		#}
+		<div class="form-person">
+			<label for="hif" class="">Horario</label>
+			<div class="form-group">
+				<select name="hif" id="hif" class="form-control text-center selectpicker">
+					<option selected disabled>Hora de inicio - Hora que termina</option>
+					{% for hora in horarios %}
+						<option value="{{hora}}" {{post.hif == hora ? 'selected'}}>{{hora}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="rper">Periodo &nbsp;<span class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Semestre en que se imparte"></span></label>
+			<select name="rper" id="rper" class="form-control text-center selectpicker" data-size="10">
+			<!-- <select name="rper" id="rper" class="form-control text-center selectpicker" data-live-search="true" data-size="10"> -->
+				<option disabled selected>Selecciona el calendario</option>
+				<option data-subtext="16/01/17 - 02/06/17" selected value="17A" {{post.peri == '17A' ? 'selected'}}>17A</option>
+				<option data-subtext="14/08/17 - 15/12/17" value="17B" {{post.peri == '17B' ? 'selected'}}>17B</option>
+			</select>
+		</div>
+		<div class="form-group text-center">
+			<label for="rmae">Maestro</label>
+			<select name="rmae" id="rmae" class="form-control selectpicker text-center" data-live-search="true" data-size="10">
+				<option class="text-center" value="">Seleccionar maestro para la clase</option>
+				{% for prof in profs %}
+					<option class="text-center" value="{{prof.id|capitalize}}" {{post.prof == prof.id ? 'selected'}} data-subtext="({{prof.codigo}})">{{prof.ap1|capitalize}} {{prof.ap2|capitalize}}, {{prof.nombre|capitalize}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		{% if errors %}
+			<div class="alert alert-danger text-left" role="alert">
+				<ul>
+				{% for error in errors %}
+					<li><span class="fa fa-exclamation-triangle"></span>&nbsp {{error|capitalize}}.</li>
+				{% endfor %}
+				</ul>
+			</div>
+		{% endif %}
+		<input type="submit" name="addsec" value="{{title|capitalize|title}}" class="btn btn-success">
+	</form>
+{% endblock %}
+{% block scripts %}
+	{{parent()}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	<script src="../js/transition.js"></script>
+	<script src="../js/tooltip.js"></script>
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
+{% endblock %}

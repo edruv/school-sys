@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 
 {% block content %}
 {{parent()}}
@@ -20,6 +20,6 @@
 		<label for="empr">Correo electronico</label>
 		<input type="email" name="empr" id="empr" class="form-control" placeholder="">
 	</div>
-	<input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+	<input type="submit" value="{{title|capitalize|title}}" class="btn btn-success">
 </form>
 {% endblock %}

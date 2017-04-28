@@ -1,20 +1,36 @@
 {% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 {% block content %}
+{% if messa %}
+	<div class='alert alert-{{messa.type}} alert-dismissible text-center' role='alert'>
+	<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+{% if messa.type == 'danger' %}<span class="fa fa-{{messa.icon}}"></span> {% endif %}{{messa.message|title}}. {% if messa.type == 'success' %}<span class="fa fa-{{messa.icon}}"></span>{% endif %}
+	</div>
+{% endif %}
 {{parent()}}
-	<form action="" class="fad col-md-6 col-md-offset-3 text-center">
+	<form action="" class="fad col-md-6 col-md-offset-3 text-center" method="post">
 	      <div class="form-group">
 	         <label for="ncr">Nombre / Numero</label>
-	         <input type="text" name="ncr" id="ncr" class="form-control">
+	         <input type="text" name="ncr" id="ncr" class="form-control text-center" placeholder="Nombre o numero del aula">
 	      </div>
 	      <div class="form-group">
 	         <label for="edcr">Edificio donde se encuentra</label>
 	         <select name="edcr" id="edcr" class="form-control text-center">
+					<option value="">Selecciona un edificio</option>
 					{% for edif in res %}
-						<option value="{{edif.id}}">{{edif.nombre}}</option>
+						<option value="{{edif.id}}">{{edif.nombre|capitalize}}</option>
 					{% endfor %}
 	         </select>
 	      </div>
-	      <input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+			{% if errors %}
+				<div class="alert alert-danger text-left">
+					<ul>
+						{% for error in errors %}
+							<li><span class="fa fa-exclamation-triangle"></span> {{error|capitalize|title}}</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+	      <input type="submit" name="acro" value="{{title|capitalize|title}}" class="btn btn-success">
 	</form>
 {% endblock %}

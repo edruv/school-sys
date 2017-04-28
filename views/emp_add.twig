@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-{% block title %} {{title|capitalize}} {% endblock %}
+{% block title %} {{title|capitalize|title}} {% endblock %}
 
 {% block content %}
 {{parent()}}
@@ -28,6 +28,6 @@
 		<label for="psprc">Repetir contraseña</label>
 		<input type="text" name="psprc" id="psprc" class="form-control" placeholder="">
 	</div>
-	<input type="submit" value="{{title|capitalize}}" class="btn btn-success">
+	<input type="submit" value="{{title|capitalize|title}}" class="btn btn-success">
 </form>
 {% endblock %}

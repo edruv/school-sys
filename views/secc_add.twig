@@ -1,0 +1,141 @@
+{% extends 'layouts/base.html' %}
+{% block head %}
+   {{parent()}}
+   <style>
+      .form-person .form-group select {
+         display: inline-block;
+         width: 49%;
+      }
+      .diasds-selector input {
+         display: none!important;
+      }
+      .diasds-selector input[type=checkbox] + label {
+         display: inline-block;
+         border-radius: 6px;
+         background: #ffffff;
+         height: 40px;
+         width: 5em;
+         margin-right: 3px;
+         line-height: 40px;
+         text-align: center;
+         cursor: pointer;
+         color: black;
+      }
+      .diasds-selector input[type=checkbox]:checked + label {
+         background: #337ab7;
+         color: #ffffff;
+      }
+      @media screen and ( max-width: 768px) {
+         .diasds-selector input[type=checkbox] + label {
+            width: 4em;
+         }
+      }
+   </style>
+{% endblock %}
+{% block title %}
+   {{title|capitalize|title}}
+{% endblock %}
+{% block content %}
+   {{parent()}}
+   <form action="" class="fad col-md-6 col-md-offset-3 text-center" method="post">
+      <div class="form-group">
+         <label for="rmat">Materia</label>
+         <select name="rmat" id="rmat" class="form-control text-center">
+            <option value=""></option>
+            {% for matter in matters %}
+               <option value="{{matter.id}}">{{matter.nombre|title}} ({{matter.carrera}})</option>
+               {#<option value="{{matter.id}}">{{matter.nombre|title}} ({{matter.carrera}})</option>#}
+            {% endfor %}
+            <option value=""></option>
+         </select>
+      </div>
+      <div class="form-group">
+         <label for="rcup">Cupo</label>
+         <input type="text" name="rcup" id="rcup" class="form-control">
+      </div>
+      <div class="form-group">
+         <label for="">Dias</label><br>
+         <div class="diasds-selector">
+            <input type="checkbox" name="weekday[]" value="lu" id="weekday-mon" class="weekday"/>
+            <label for="weekday-mon">L</label>
+            <input type="checkbox" name="weekday[]" value="ma" id="weekday-tue" class="weekday"/>
+            <label for="weekday-tue">Ma</label>
+            <input type="checkbox" name="weekday[]" value="mi" id="weekday-wed" class="weekday"/>
+            <label for="weekday-wed">Mi</label>
+            <input type="checkbox" name="weekday[]" value="ju" id="weekday-thu" class="weekday"/>
+            <label for="weekday-thu">J</label>
+            <input type="checkbox" name="weekday[]" value="vi" id="weekday-fri" class="weekday"/>
+            <label for="weekday-fri">V</label>
+            <input type="checkbox" name="weekday[]" value="sa" id="weekday-sat" class="weekday"/>
+            <label for="weekday-sat">S</label>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="reau">Edificio/Aula</label>
+         <select name="reau" id="reau" class="form-control text-center">
+            <option value="">Selecciona un aula</option>
+            {% for auedif in aued %}
+            <option value="{{auedif.edau}}">{{auedif.edau|capitalize}}</option>
+            {% endfor %}
+         </select>
+      </div>
+      <div class="form-person">
+         <label for="" class="">Horario</label>
+         <div class="form-group">
+            <select name="hoin" id="hoin" class="form-control text-center">
+               <option value="">Hora de inicio</option>
+               <option value="07:00">07:00</option>
+               <option value="08:00">08:00</option>
+               <option value="09:00">09:00</option>
+               <option value="10:00">10:00</option>
+               <option value="11:00">11:00</option>
+               <option value="12:00">12:00</option>
+               <option value="13:00">13:00</option>
+               <option value="14:00">14:00</option>
+               <option value="15:00">15:00</option>
+               <option value="16:00">16:00</option>
+               <option value="17:00">17:00</option>
+               <option value="18:00">18:00</option>
+               <option value="19:00">19:00</option>
+               <option value="20:00">20:00</option>
+            </select>
+            <!-- <label for="" class="visible-xs">Hora de fin</label> -->
+            <select name="hofi" id="hofi" class="form-control text-center">
+               <option value="">Hora de fin</option>
+               <option value="07:55">07:55</option>
+               <option value="08:55">08:55</option>
+               <option value="09:55">09:55</option>
+               <option value="10:55">10:55</option>
+               <option value="11:55">11:55</option>
+               <option value="12:55">12:55</option>
+               <option value="13:55">13:55</option>
+               <option value="14:55">14:55</option>
+               <option value="15:55">15:55</option>
+               <option value="16:55">16:55</option>
+               <option value="17:55">17:55</option>
+               <option value="18:55">18:55</option>
+               <option value="19:55">19:55</option>
+               <option value="20:55">20:55</option>
+            </select>
+         </div>
+      </div>
+      <div class="form-group">
+         <label for="">Periodo</label>
+         <select name="" id="" class="form-control text-center">
+            <option value="">17A (16-01-17/02-06-17)</option>
+            <option value=""></option>
+            <option value=""></option>
+         </select>
+      </div>
+      <div class="form-group">
+         <label for="rmae">Maestro</label>
+         <select name="rmae" id="rmae" class="form-control text-center">
+            <option value="">Seleccionar maestro para la clase</option>
+            {% for prof in profs %}
+               <option value="{{prof.id|capitalize}}">{{prof.ap1|capitalize}} {{prof.ap2|capitalize}}, {{prof.nombre|capitalize}} ({{prof.codigo}})</option>
+            {% endfor %}
+         </select>
+      </div>
+      <input type="submit" name="addsec" value="{{title|capitalize|title}}" class="btn btn-success">
+   </form>
+{% endblock %}

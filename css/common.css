@@ -87,3 +87,6 @@ div div div ul li a:active{
 .list-group-submenu {
 	margin-left:20px;
 }
+.alert-danger ul li{
+	list-style: none;
+}
